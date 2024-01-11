@@ -1,0 +1,14 @@
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.GeneratedMSBuildEditorConfig.editorconfig
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.AssemblyInfoInputs.cache
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.AssemblyInfo.cs
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.csproj.CoreCompileInputs.cache
+C:\Hetal\Fareportal\C#\three\bin\Debug\net8.0\three.exe
+C:\Hetal\Fareportal\C#\three\bin\Debug\net8.0\three.deps.json
+C:\Hetal\Fareportal\C#\three\bin\Debug\net8.0\three.runtimeconfig.json
+C:\Hetal\Fareportal\C#\three\bin\Debug\net8.0\three.dll
+C:\Hetal\Fareportal\C#\three\bin\Debug\net8.0\three.pdb
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.dll
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\refint\three.dll
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.pdb
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\three.genruntimeconfig.cache
+C:\Hetal\Fareportal\C#\three\obj\Debug\net8.0\ref\three.dll
