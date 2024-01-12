@@ -3,21 +3,6 @@ namespace three{
     
     class BankRepository : IBankRepository
     {
-        /*
-        The class should contain a collection of SBAccount class, and another collection of SBTransaction class.
-        Use generic List for both.
-        - The "New Account" method must add the details of a new account to the SBAccount collection.
-        - Given an account number, the "Get Details of an Account" method must return the details of 
-        the account. If the account number is not in the list, exception must be thrown.
-        - The "Get Details of all Accounts" must return the details of all the accounts.
-        - The "Deposit Amount" and "Withdraw Amount" methods must update the current balance in the 
-        corresponding account in the SBAccount collection, and add the details of the transaction in 
-        the SBTransaction collection.
-        - If there is not enough balance in the account, then "Withdraw Amount" method must throw 
-        an exception.
-        - Given an account number, the "Get Transactions of an Account" should return the details of 
-        all the transactions done by the account number.
-        */
         int transactionIdCounter = 0;
         List<SBAccount> accounts = new List<SBAccount>();
         List<SBTransaction> transactions = new List<SBTransaction>();
@@ -36,17 +21,20 @@ namespace three{
         public void DepositAmount(int accno, float amt)
         {
             SBAccount account = GetAccountDetails(accno);
+            try{
             if (account != null)
             {
                 account.CurrBalance += amt;
                 RecordTransaction(accno, amt, "Deposit");
             }
-            else
-            Console.WriteLine("Account with Account Number {0} not found.", accno);   
+            }
+            catch{
+            Console.WriteLine("Account with Account Number {0} not found.", accno);}   
         }
         public void WithdrawAmount(int accno, float amt)
         {
             SBAccount account = GetAccountDetails(accno);
+            try{
             if (account != null)
             {
                 if (account.CurrBalance >= amt)
@@ -57,8 +45,10 @@ namespace three{
                 else
                 Console.WriteLine("Insufficient funds.");
             }
-            else
+            }
+            catch{
             Console.WriteLine("Account with Account Number {0} not found.",accno);
+            }
         }
         public List<SBTransaction> GetTransactions(int accno)
         {
