@@ -1,6 +1,13 @@
 using System.Collections;
 namespace three{
-    
+    class InsufficientException : ApplicationException
+    {
+        public InsufficientException(string msg): base(msg){}
+    }
+    class InvalidAccountException : ApplicationException
+    {
+        public InvalidAccountException(string msg): base(msg){}
+    }
     class BankRepository : IBankRepository
     {
         int transactionIdCounter = 0;
@@ -21,20 +28,17 @@ namespace three{
         public void DepositAmount(int accno, float amt)
         {
             SBAccount account = GetAccountDetails(accno);
-            try{
             if (account != null)
             {
                 account.CurrBalance += amt;
                 RecordTransaction(accno, amt, "Deposit");
             }
-            }
-            catch{
-            Console.WriteLine("Account with Account Number {0} not found.", accno);}   
+            else
+            throw new InvalidAccountException("Account with entered Account Number not found.");
         }
         public void WithdrawAmount(int accno, float amt)
         {
             SBAccount account = GetAccountDetails(accno);
-            try{
             if (account != null)
             {
                 if (account.CurrBalance >= amt)
@@ -43,12 +47,10 @@ namespace three{
                     RecordTransaction(accno, amt, "Withdrawal");
                 }
                 else
-                Console.WriteLine("Insufficient funds.");
+                throw new InsufficientException("Insufficient funds.");                
             }
-            }
-            catch{
-            Console.WriteLine("Account with Account Number {0} not found.",accno);
-            }
+            else
+            throw new InvalidAccountException("Account with entered Account Number not found.");
         }
         public List<SBTransaction> GetTransactions(int accno)
         {
