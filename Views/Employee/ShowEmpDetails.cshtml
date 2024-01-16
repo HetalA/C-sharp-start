@@ -1,0 +1,18 @@
+@model IEnumerable<firstmvc.Models.Employee>
+
+<table>
+    <tr>
+        <th>EID</th>
+        <th>Employee Name</th>
+        <th>Salary</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+        <th>@item.Eid</th>
+        <th>@item.Name</th>
+        <th>@item.Salary</th>
+        </tr>
+    }
+    
+</table>
