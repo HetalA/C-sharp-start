@@ -1,0 +1,47 @@
+@model IEnumerable<flightmvc.Models.HetalCustomer>
+
+@{
+    ViewData["Title"] = "ShowCustomers";
+}
+
+<h1>ShowCustomers</h1>
+
+<p>
+    <a asp-action="AddCustomer">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.ActionLink("Edit Details", "EditCustomer", new { id = item.CustomerId }) |
+                @Html.ActionLink("Customer Details", "CustomerDetails", new { id = item.CustomerId }) |
+                @Html.ActionLink("Delete Customer", "DeleteCustomer", new { id = item.CustomerId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

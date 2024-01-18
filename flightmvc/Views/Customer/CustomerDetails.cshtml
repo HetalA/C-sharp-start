@@ -1,0 +1,36 @@
+@model flightmvc.Models.HetalCustomer
+
+@{
+    ViewData["Title"] = "CustomerDetails";
+}
+
+<h1>CustomerDetails</h1>
+
+<div>
+    <h4>HetalCustomer</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit Customer", "EditCustomer", new { id = Model.CustomerId }) |
+    <a asp-action="Index">Back to List</a>
+</div>

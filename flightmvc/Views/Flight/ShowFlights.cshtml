@@ -1,0 +1,65 @@
+@model IEnumerable<flightmvc.Models.HetalFlight>
+
+@{
+    ViewData["Title"] = "ShowFlights";
+}
+
+<h1>ShowFlights</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Airline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Airline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit Flight", "EditFlight", new { id = item.FlightId }) |
+                @Html.ActionLink("Details of Flight", "FlightDetails", new { id = item.FlightId }) |
+                @Html.ActionLink("Delete Flight", "DeleteFlight", new { id = item.FlightId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
