@@ -1,0 +1,14 @@
+@model List<HetalFlight>
+
+@{
+    ViewData["Title"] = "ShowBookings";
+}
+<table>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item
+            </td>
+        </tr>
+        }
+</table>

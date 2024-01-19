@@ -16,6 +16,7 @@ namespace flightmvc.Controllers
             List<HetalFlight> flights = [..ctx.HetalFlights.Where(h => true)];
             return View(flights);
         }
+        
         [HttpGet]
         public ActionResult AddFlight()
         {

@@ -1,0 +1,47 @@
+@model List<HetalBooking>
+
+@{
+    ViewData["Title"] = "ShowRelBookings";
+}
+
+<h2>Flights from @ViewData["Source"] to @ViewData["Destination"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FlightID
+            </th>
+            <th>
+                Source
+            </th>
+            <th>
+                Destination
+            </th>
+            <th>
+                Airline
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var allFlights in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => allFlights.FlightId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => allFlights.Flight.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => allFlights.Flight.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => allFlights.Flight.Airline)
+            </td>    
+            <td>
+                @Html.ActionLink("Book", "Book", new { id = allFlights.BookingId }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

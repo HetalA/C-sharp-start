@@ -34,7 +34,6 @@ public partial class Ace52024Context : DbContext
             entity.HasKey(e => e.BookingId);
 
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
-            entity.Property(e => e.BookingDate).HasColumnType("datetime");
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.FlightId).HasColumnName("FlightID");
 

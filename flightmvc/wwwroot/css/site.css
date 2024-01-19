@@ -17,24 +17,33 @@ html {
   min-height: 100%;
 }
 
+.bg-text{
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
 .form-group{
   margin: 20px;
 }
 
-table{
-  width: 600px;
-  border-collapse: collapse;
-}
-img{
-  width: 100%;
-}
-
 h1{
   font-family: 'Times New Roman', Times, serif;
+  background-color: black;
+  color: white;
 }
 
 body {
   margin-bottom: 60px;
   margin-left: 20px;
   margin-right: 20px;
+  background-image: url('https://g.foolcdn.com/editorial/images/563400/airplanetakingoff.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
 }

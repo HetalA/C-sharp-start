@@ -5,11 +5,13 @@ namespace flightmvc.Controllers
 {
     public class LoginController : Controller
     {
-        public static Ace52024Context ctx;
+        private readonly Ace52024Context ctx;
+        private readonly ISession session;
         //Dependency Injection  in constructor
-        public LoginController(Ace52024Context _ctx)
+        public LoginController(Ace52024Context _ctx, IHttpContextAccessor HttpContextAccessor)
         {
             ctx=_ctx;
+            session=HttpContextAccessor.HttpContext.Session;
         }
         [HttpGet]
         public IActionResult Login()
@@ -23,7 +25,7 @@ namespace flightmvc.Controllers
             && i.Password==u.Password select i).SingleOrDefault();  
             if(result!=null)
             {
-                HttpContext.Session.SetString("uname", result.Username);
+                HttpContext.Session.SetString("Username", result.Username);
                 return RedirectToAction("ShowBookings","Booking");
             } 
             else
@@ -37,9 +39,15 @@ namespace flightmvc.Controllers
         [HttpPost]
         public IActionResult Register(HetalUsertable u)
         {
-            ctx.HetalUsertables.Add(u);
-            ctx.SaveChanges();
-            return RedirectToAction("Login");
+            if(ModelState.IsValid)
+            {
+                ctx.HetalUsertables.Add(u);
+                ctx.SaveChanges();
+                return RedirectToAction("Login");
+            }
+            else{
+                return View();
+            }
         }
         public IActionResult Logout()
         {

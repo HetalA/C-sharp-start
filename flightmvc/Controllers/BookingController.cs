@@ -2,6 +2,7 @@ using flightmvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace flightmvc.Controllers
 {
@@ -30,9 +31,36 @@ namespace flightmvc.Controllers
         [HttpPost] //button click logic 
         public ActionResult AddBooking(HetalBooking booking)
         {
+            var var1 = Convert.ToInt32(booking.Source);
+            string src = ctx.HetalFlights.Where(x => x.FlightId==var1).Select(x => x.Source).First();
+            var var2 = Convert.ToInt32(booking.Destination);
+            string dest = ctx.HetalFlights.Where(x => x.FlightId==var2).Select(x => x.Destination).First();
+            
+            TempData["Source"] = src;
+            TempData["Destination"] = dest;
+            return RedirectToAction("ShowRelBookings");
+        }
+        public ActionResult ShowRelBookings()
+        {
+            string src = TempData["Source"] as string;
+            string dest = TempData["Destination"] as string;
+            
+            ViewData["Source"] = src;
+            ViewData["Destination"] = dest;
+            var allFlights = ctx.HetalBookings.Include(b => b.Flight).Where(b => (b.Flight.Source == ViewData["Source"] && b.Flight.Destination==ViewData["Destination"])).ToList();
+
+            return View(allFlights);
+        }
+        public ActionResult Test(List<HetalFlight> allFlights)
+        {
+            return View(allFlights);
+        }
+        [HttpPost]
+        public ActionResult SaveBooking(HetalBooking booking)
+        {
             ctx.HetalBookings.Add(booking);
-            ctx.SaveChanges();  
-            return RedirectToAction("ShowBookings");
+            ctx.SaveChanges(); 
+            return View();
         }
         [HttpGet]
         public ActionResult EditBooking(int id)
