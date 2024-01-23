@@ -17,13 +17,42 @@ html {
   min-height: 100%;
 }
 
+table{
+  width: 100%;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #4D23F8;
+  border-style: solid;
+  color: #000000;
+}
+
+table td, table th {
+  border-width: 2px;
+  border-color: #4D23F8;
+  border-style: solid;
+  padding: 5px;
+}
+
+table thead {
+  background-color: #97C4F8;
+}
+
 .bg-text{
   background-color: white;
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: fit-content;
+  width: 600px;
+}
+
+.header-style{
+  background-color: transparent;
+}
+
+#top-nav{
+  background-color: transparent;
 }
 
 .form-group{
@@ -32,8 +61,7 @@ html {
 
 h1{
   font-family: 'Times New Roman', Times, serif;
-  background-color: black;
-  color: white;
+  color: black;
 }
 
 body {

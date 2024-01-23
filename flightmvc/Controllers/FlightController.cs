@@ -16,7 +16,26 @@ namespace flightmvc.Controllers
             List<HetalFlight> flights = [..ctx.HetalFlights.Where(h => true)];
             return View(flights);
         }
-        
+        public ActionResult ShowRelBookings()
+        {
+            string src = TempData["Source"] as string;
+            string dest = TempData["Destination"] as string;
+            
+            ViewData["Source"] = src.GetType();
+            ViewData["Destination"] = dest;
+            Console.WriteLine("", src, dest);
+
+            var allFlights = ctx.HetalFlights.Where(b => (b.Source == src && b.Destination == dest)).ToList();
+
+            return View(allFlights);
+        }
+        [HttpPost]
+        public ActionResult Book(HetalFlight flight)
+        {
+            TempData["flight"] = flight.FlightId;
+            TempData["rate"] = flight.Rate.ToString();
+            return RedirectToAction("SaveBooking","Booking");
+        }
         [HttpGet]
         public ActionResult AddFlight()
         {

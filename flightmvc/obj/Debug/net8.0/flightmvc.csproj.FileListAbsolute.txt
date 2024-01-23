@@ -250,3 +250,5 @@ C:\Users\H.A.wa22\dotnet_training\flightmvc\bin\Debug\net8.0\runtimes\win\lib\ne
 C:\Users\H.A.wa22\dotnet_training\flightmvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\H.A.wa22\dotnet_training\flightmvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\H.A.wa22\dotnet_training\flightmvc\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\H.A.wa22\dotnet_training\flightmvc\obj\Debug\net8.0\scopedcss\Views\Shared\LoginLayout.cshtml.rz.scp.css
+C:\Users\H.A.wa22\dotnet_training\flightmvc\obj\Debug\net8.0\scopedcss\Views\Shared\AdminLayout.cshtml.rz.scp.css

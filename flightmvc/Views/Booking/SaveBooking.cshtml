@@ -1,0 +1,40 @@
+@model flightmvc.Models.HetalBooking
+
+@{
+    ViewData["Title"] = "SaveBooking";
+    Layout = "_Layout";
+}
+
+<h1>Save Booking</h1>
+
+    <div class="bg-text">
+        <form asp-action="SaveBooking">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookingDate" class="control-label">Date of Travel</label>
+                <input asp-for="BookingDate" class="form-control" type="date"/>
+                <span asp-validation-for="BookingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoOfPassengers" class="control-label">Passengers</label>
+                <input asp-for="NoOfPassengers" class="form-control" />
+                <span asp-validation-for="NoOfPassengers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount" class="control-label">Fare Type</label>
+                <select asp-for="Discount" class="form-control">
+                    <option selected id="1" value="1">Regular</option>
+                    <option id="2" value="2">Student</option>
+                    <option id="3" value="3">Armed Forces</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Confirm" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

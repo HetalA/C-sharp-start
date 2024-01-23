@@ -4,11 +4,9 @@
     ViewData["Title"] = "CustomerDetails";
 }
 
-<h1>CustomerDetails</h1>
+<h1>Customer Details</h1>
 
-<div>
-    <h4>HetalCustomer</h4>
-    <hr />
+<div class="bg-text">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CustomerId)
@@ -31,6 +29,5 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit Customer", "EditCustomer", new { id = Model.CustomerId }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit Customer", "EditCustomer", new { id = Model.CustomerId })
 </div>

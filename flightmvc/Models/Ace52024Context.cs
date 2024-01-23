@@ -34,6 +34,7 @@ public partial class Ace52024Context : DbContext
             entity.HasKey(e => e.BookingId);
 
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
+            entity.Property(e => e.BookingDate).HasColumnType("datetime");
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.FlightId).HasColumnName("FlightID");
 
@@ -63,6 +64,12 @@ public partial class Ace52024Context : DbContext
 
             entity.Property(e => e.FlightId).HasColumnName("FlightID");
             entity.Property(e => e.Airline).HasMaxLength(30);
+            entity.Property(e => e.Arrival)
+                .HasMaxLength(5)
+                .IsUnicode(false);
+            entity.Property(e => e.Departure)
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Destination).HasMaxLength(50);
             entity.Property(e => e.FlightName).HasMaxLength(15);
             entity.Property(e => e.Source).HasMaxLength(50);
@@ -80,6 +87,9 @@ public partial class Ace52024Context : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("id");
+            entity.Property(e => e.Location)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");

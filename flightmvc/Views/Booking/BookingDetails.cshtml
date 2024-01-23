@@ -4,11 +4,9 @@
     ViewData["Title"] = "BookingDetails";
 }
 
-<h1>BookingDetails</h1>
+<h1>Booking Details</h1>
 
-<div>
-    <h4>HetalBooking</h4>
-    <hr />
+<div class="bg-text">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.BookingId)
@@ -47,8 +45,4 @@
             @Html.DisplayFor(model => model.TotalCost)
         </dd>
     </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit Booking", "EditBooking", new { id = Model.BookingId }) |
-    <a asp-action="Index">Back to List</a>
 </div>

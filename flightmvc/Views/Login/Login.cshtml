@@ -2,11 +2,19 @@
 
 @{
     ViewData["Title"] = "Login";
+    Layout = "LoginLayout";
 }
 
 <h1>Login</h1>
 
-<hr />
+
+@if(ViewBag.ShowAlert != null && (bool)ViewBag.ShowAlert == true)
+{
+    <script>
+        alert("Invalid login");
+    </script>
+}
+
 <div class="bg-text">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

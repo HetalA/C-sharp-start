@@ -23,13 +23,31 @@ namespace flightmvc.Controllers
         {
             var result = (from i in ctx.HetalUsertables where i.Email==u.Email 
             && i.Password==u.Password select i).SingleOrDefault();  
-            if(result!=null)
+            if(result!=null && result.Email!="admin@fareportal.com")
             {
                 HttpContext.Session.SetString("Username", result.Username);
-                return RedirectToAction("ShowBookings","Booking");
+                return RedirectToAction("AddBooking","Booking");
             } 
-            else
-            return View();
+            // else if(result.Email!="admin@fareportal.com")
+            // {
+            //     ViewBag.ShowAlert = true;
+            //     return View();
+            // }
+            else if(u.Email=="admin@fareportal.com" && u.Password=="admin")
+            {
+                return RedirectToAction("ShowBookings","Booking");
+            }
+            else{
+                ViewBag.ShowAlert = true;
+                return View();
+            }
+            
+        }
+        [HttpGet]
+        public ActionResult ShowUsers()
+        {
+            List<HetalUsertable> users = [..ctx.HetalUsertables.Where(h => true)];
+            return View(users);
         }
         [HttpGet]
         public IActionResult Register()

@@ -4,11 +4,8 @@
     ViewData["Title"] = "ShowBookings";
 }
 
-<h1>ShowBookings</h1>
+<h1>All Bookings</h1>
 
-<p>
-    <a asp-action="AddBooking">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -20,6 +17,15 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Flight.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.Departure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight.Arrival)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CustomerId)
@@ -47,6 +53,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Flight.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight.Arrival)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CustomerId)

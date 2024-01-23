@@ -7,9 +7,7 @@
 <h1>DeleteBooking</h1>
 
 <h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>HetalBooking</h4>
-    <hr />
+<div class="bg-text">
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.BookingId)
@@ -51,6 +49,6 @@
     
     <form asp-action="DeleteBooking">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="button" value="Cancel" class="btn btn-primary" />
     </form>
 </div>

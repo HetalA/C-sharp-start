@@ -1,0 +1,63 @@
+@model List<HetalFlight>
+
+@{
+    ViewData["Title"] = "ShowRelBookings";
+    Layout = "_Layout";
+}
+
+<h1>Here's what we have for you!</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FlightName
+            </th>
+            <th>
+                Airline
+            </th>
+            <th>
+                Source
+            </th>
+            <th>
+                Destination
+            </th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>
+                Rate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.FlightName
+            </td>
+            <td>
+                @item.Airline
+            </td>
+            <td>
+                @item.Source
+            </td>
+            <td>
+                @item.Destination
+            </td>
+            <td>
+                @item.Departure
+            </td>
+            <td>
+                @item.Arrival
+            </td>
+            <td>
+                @item.Rate
+            </td>
+            <td>
+                @Html.ActionLink("Book", "SaveBooking", "Booking", new { id = item.FlightId }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

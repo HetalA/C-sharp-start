@@ -2,6 +2,7 @@ using flightmvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http.Extensions;
 using System.Diagnostics;
 
 namespace flightmvc.Controllers
@@ -24,42 +25,57 @@ namespace flightmvc.Controllers
         [HttpGet]
         public ActionResult AddBooking()
         {
-            ViewBag.src = new SelectList(ctx.HetalFlights,"FlightId","Source");
-            ViewBag.dest = new SelectList(ctx.HetalFlights,"FlightId","Destination");
+            var distinctsrc = ctx.HetalFlights.Select(x => x.Source).Distinct().ToList();
+            ViewBag.src = new SelectList(distinctsrc,"Source");
+            var distinctdest = ctx.HetalFlights.Select(x => x.Destination).Distinct().ToList();
+            ViewBag.dest = new SelectList(distinctdest,"Destination");
             return View();
         }
         [HttpPost] //button click logic 
         public ActionResult AddBooking(HetalBooking booking)
         {
-            var var1 = Convert.ToInt32(booking.Source);
-            string src = ctx.HetalFlights.Where(x => x.FlightId==var1).Select(x => x.Source).First();
-            var var2 = Convert.ToInt32(booking.Destination);
-            string dest = ctx.HetalFlights.Where(x => x.FlightId==var2).Select(x => x.Destination).First();
+            var var1 = booking.Source;
+            string src = ctx.HetalFlights.Where(x => x.Source==var1).Select(x => x.Source).First();
+            var var2 = booking.Destination;
+            string dest = ctx.HetalFlights.Where(x => x.Destination==var2).Select(x => x.Destination).First();
             
             TempData["Source"] = src;
             TempData["Destination"] = dest;
-            return RedirectToAction("ShowRelBookings");
+            return RedirectToAction("ShowRelBookings","Flight");
         }
-        public ActionResult ShowRelBookings()
+        
+        public ActionResult Test()
         {
-            string src = TempData["Source"] as string;
-            string dest = TempData["Destination"] as string;
-            
-            ViewData["Source"] = src;
-            ViewData["Destination"] = dest;
-            var allFlights = ctx.HetalBookings.Include(b => b.Flight).Where(b => (b.Flight.Source == ViewData["Source"] && b.Flight.Destination==ViewData["Destination"])).ToList();
-
+            var allFlights = TempData["bookings"];
             return View(allFlights);
         }
-        public ActionResult Test(List<HetalFlight> allFlights)
+        [HttpGet]
+        public ActionResult SaveBooking(HetalFlight flight)
         {
-            return View(allFlights);
+            TempData["id"] = flight.FlightId;
+            return View();
         }
         [HttpPost]
         public ActionResult SaveBooking(HetalBooking booking)
         {
+            string currUrl = Request.GetDisplayUrl();
+            string[] segments = currUrl.Split('/');
+            booking.FlightId = Convert.ToInt32(segments.LastOrDefault());
+            booking.CustomerId = 1;
+            double cost = ctx.HetalFlights.Where(x => x.FlightId==booking.FlightId).Select(x => x.Rate).First();
+            if(booking.Discount=="1")
+            booking.TotalCost = (double)(booking.NoOfPassengers*cost);
+            else
+            booking.TotalCost = (double)(booking.NoOfPassengers*cost - 500);
             ctx.HetalBookings.Add(booking);
-            ctx.SaveChanges(); 
+            ctx.SaveChanges();
+            TempData["cost"] = booking.TotalCost.ToString();
+            return RedirectToAction("Successful");         
+        }
+        [HttpGet]
+        public ActionResult Successful()
+        {
+            ViewBag.cost = TempData["cost"];
             return View();
         }
         [HttpGet]
