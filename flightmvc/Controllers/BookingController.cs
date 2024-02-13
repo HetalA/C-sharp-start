@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http.Extensions;
 using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace flightmvc.Controllers
 {
@@ -15,12 +19,35 @@ namespace flightmvc.Controllers
         {
             ctx=_ctx;
         }
-        public ActionResult ShowBookings()
+        public static List<HetalBooking> bookings = new List<HetalBooking>();
+        public async Task<ActionResult> ShowBookings()
         {
-            List<HetalBooking> bookings = [..ctx.HetalBookings.Where(h => true)];
-            var result = ctx.HetalBookings.Include(x => x.Flight);
-            return View(result);
-            //return View(bookings);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); 
+            HttpResponseMessage Res = await client.GetAsync("http://localhost:5197/api/Booking");
+            HetalFlight flightrec = new HetalFlight();
+            if (Res.IsSuccessStatusCode)
+            {
+                var response = Res.Content.ReadAsStringAsync().Result;
+                bookings = JsonConvert.DeserializeObject<List<HetalBooking>>(response);
+                foreach(var item in bookings)
+                {
+                    HttpResponseMessage ResFlight = await client.GetAsync("http://localhost:5197/api/Flight/"+item.FlightId);
+                    //Console.WriteLine(item.FlightId);
+                    if(ResFlight.IsSuccessStatusCode)
+                    {
+                        var res = ResFlight.Content.ReadAsStringAsync().Result;
+                        // Console.WriteLine(res);
+                        flightrec = JsonConvert.DeserializeObject<HetalFlight>(res);
+                        item.Source = flightrec.Source;
+                        item.Destination = flightrec.Destination;
+                        item.Arrival = flightrec.Arrival;
+                        item.Departure = flightrec.Departure;
+                    }
+                }
+            }
+            return View(bookings);
         }
         [HttpGet]
         public ActionResult AddBooking()
@@ -79,18 +106,36 @@ namespace flightmvc.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult EditBooking(int id)
+        public async Task<ActionResult> EditBooking(int id)
         {
-            HetalBooking booking = ctx.HetalBookings.Where(x => x.BookingId == id).SingleOrDefault();
+            HetalBooking booking = new HetalBooking();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:5197/api/Booking/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    booking = JsonConvert.DeserializeObject<HetalBooking>(apiResponse);
+                }
+            }
             TempData["Bookingid"] = id;
             return View(booking);
         }
         [HttpPost]
-        public ActionResult EditBooking(HetalBooking booking)
+        public async Task<ActionResult> EditBooking(HetalBooking booking)
         {
             booking.BookingId = Convert.ToInt32(TempData["Bookingid"]);
-            ctx.HetalBookings.Update(booking);
-            ctx.SaveChanges();
+            using (var httpClient = new HttpClient())
+            {
+                int id = Convert.ToInt32(TempData["Bookingid"]);
+                StringContent content1 = new StringContent(JsonConvert.SerializeObject(booking), Encoding.UTF8, "application/json");
+                using (var response = await httpClient.PutAsync("http://localhost:5197/api/Booking/" + id, content1))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    ViewBag.Result = "Success";
+                    
+                    booking = JsonConvert.DeserializeObject<HetalBooking>(apiResponse);
+                }
+            }
             return RedirectToAction("ShowBookings");
         }
         [HttpGet]
@@ -106,18 +151,31 @@ namespace flightmvc.Controllers
             return View(booking);
         }
         [HttpGet]
-        public ActionResult DeleteBooking(int id)
+        public async Task<ActionResult> DeleteBooking(int id)
         {
-            HetalBooking booking = ctx.HetalBookings.Where(x => x.BookingId == id).SingleOrDefault();
+            HetalBooking booking = new HetalBooking();
             TempData["Bookingid"] = id;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("http://localhost:5197/api/Booking/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    booking = JsonConvert.DeserializeObject<HetalBooking>(apiResponse);
+                }
+            }
             return View(booking);
         }
         [HttpPost]
-        public ActionResult DeleteBooking(HetalBooking booking)
+        public async Task<ActionResult> DeleteBooking(HetalBooking booking)
         {
             booking.BookingId = Convert.ToInt32(TempData["Bookingid"]);
-            ctx.HetalBookings.Remove(booking);
-            ctx.SaveChanges();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.DeleteAsync("http://localhost:5197/api/Flight/" + booking.BookingId))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
             return RedirectToAction("ShowBookings");
         }
     }

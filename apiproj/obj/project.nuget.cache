@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "20ZqtZb9sfR+gZEK4AhcT8dvqw00UWoi6zpoo34wYVdTKv2VtXccNc+3Yel6JlZwzfxo3+XPsepwX+8afGj9aw==",
+  "dgSpecHash": "zbYG1fLb5WtdLhgVDnhBtr0zKaAbaxGnTAHzbBrpitB7vC/cQYUZw5dpxzmEOsRl9R0CbApp2bpgYcVkfk6feA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\H.A.wa22\\dotnet_training\\apiproj\\apiproj.csproj",
+  "projectFilePath": "E:\\test_project\\apiproj\\apiproj.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\H.A.wa22\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\H.A.wa22\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

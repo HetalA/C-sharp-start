@@ -7,6 +7,7 @@ namespace apiproj.Models;
 
 public partial class HetalBooking
 {
+    [Key]
     public int BookingId { get; set; }
 
     public int FlightId { get; set; }
@@ -25,6 +26,11 @@ public partial class HetalBooking
     [NotMapped]
     public string Destination { get; set; } = null!;
     [NotMapped]
+    public string Arrival { get; set;} = null!;
+    [NotMapped]
+    public string Departure { get; set;} = null!;
+    [NotMapped]
     public string Discount { get; set;} = null!;
     public virtual HetalFlight Flight { get; set; } = null!;
+    public virtual HetalUsertable Customer { get; set; } = null!;
 }

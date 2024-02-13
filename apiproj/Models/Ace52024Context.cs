@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using apiproj.Models;
 
 namespace apiproj.Models;
 
@@ -16,7 +15,11 @@ public partial class Ace52024Context : DbContext
     {
     }
 
+    public virtual DbSet<HetalBooking> HetalBookings { get; set; }
+
     public virtual DbSet<HetalFlight> HetalFlights { get; set; }
+
+    public virtual DbSet<HetalUsertable> HetalUsertables { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -24,6 +27,21 @@ public partial class Ace52024Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<HetalBooking>(entity =>
+        {
+            entity.HasKey(e => e.BookingId);
+
+            entity.Property(e => e.BookingId).HasColumnName("BookingID");
+            entity.Property(e => e.BookingDate).HasColumnType("datetime");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            entity.Property(e => e.FlightId).HasColumnName("FlightID");
+
+            entity.HasOne(d => d.Flight).WithMany(p => p.HetalBookings)
+                .HasForeignKey(d => d.FlightId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_HetalBookings_HetalFlights");
+        });
+
         modelBuilder.Entity<HetalFlight>(entity =>
         {
             entity.HasKey(e => e.FlightId);
@@ -43,7 +61,7 @@ public partial class Ace52024Context : DbContext
 
         modelBuilder.Entity<HetalUsertable>(entity =>
         {
-            entity.HasKey(e => e.Email);
+            entity.HasKey(e => e.Id);
 
             entity.ToTable("HetalUsertable");
 
@@ -64,12 +82,8 @@ public partial class Ace52024Context : DbContext
                 .HasColumnName("username");
         });
 
-        
-
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-public DbSet<apiproj.Models.HetalUsertable> HetalUsertable { get; set; } = default!;
 }

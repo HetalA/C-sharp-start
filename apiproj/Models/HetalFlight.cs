@@ -7,6 +7,7 @@ namespace apiproj.Models;
 
 public partial class HetalFlight
 {
+    [Key]
     public int FlightId { get; set; }
     [Required(ErrorMessage = "Please enter a valid name")]
     public string FlightName { get; set; } = null!;
@@ -22,4 +23,6 @@ public partial class HetalFlight
     public string Departure { get; set; } = null!;
     [RegularExpression(@"^(?:[01]?[0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage="Please enter time in 24-hr format")]
     public string Arrival { get; set; } = null!;
+
+    public virtual ICollection<HetalBooking> HetalBookings { get; set; } = new List<HetalBooking>();
 }

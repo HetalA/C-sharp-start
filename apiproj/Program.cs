@@ -2,8 +2,11 @@ using apiproj.Models;
 using apiproj.Services;
 using apiproj.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
  
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Ace5Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Ace5Context") ?? throw new InvalidOperationException("Connection string 'Ace5Context' not found.")));
  
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

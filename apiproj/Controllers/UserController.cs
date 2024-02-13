@@ -24,14 +24,14 @@ namespace apiproj.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HetalUsertable>>> GetHetalUsertable()
         {
-            return await _context.HetalUsertable.ToListAsync();
+            return await _context.HetalUsertables.ToListAsync();
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HetalUsertable>> GetHetalUsertable(string id)
         {
-            var hetalUsertable = await _context.HetalUsertable.FindAsync(id);
+            var hetalUsertable = await _context.HetalUsertables.FindAsync(id);
 
             if (hetalUsertable == null)
             {
@@ -77,7 +77,7 @@ namespace apiproj.Controllers
         [HttpPost]
         public async Task<ActionResult<HetalUsertable>> PostHetalUsertable(HetalUsertable hetalUsertable)
         {
-            _context.HetalUsertable.Add(hetalUsertable);
+            _context.HetalUsertables.Add(hetalUsertable);
             try
             {
                 await _context.SaveChangesAsync();
@@ -101,13 +101,13 @@ namespace apiproj.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHetalUsertable(string id)
         {
-            var hetalUsertable = await _context.HetalUsertable.FindAsync(id);
+            var hetalUsertable = await _context.HetalUsertables.FindAsync(id);
             if (hetalUsertable == null)
             {
                 return NotFound();
             }
 
-            _context.HetalUsertable.Remove(hetalUsertable);
+            _context.HetalUsertables.Remove(hetalUsertable);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -115,7 +115,7 @@ namespace apiproj.Controllers
 
         private bool HetalUsertableExists(string id)
         {
-            return _context.HetalUsertable.Any(e => e.Email == id);
+            return _context.HetalUsertables.Any(e => e.Email == id);
         }
     }
 }

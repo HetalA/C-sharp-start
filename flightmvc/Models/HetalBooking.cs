@@ -24,6 +24,10 @@ public partial class HetalBooking
     [NotMapped]
     public string Destination { get; set; } = null!;
     [NotMapped]
+    public string Arrival { get; set;} 
+    [NotMapped]
+    public string Departure { get; set;}
+    [NotMapped]
     public string Discount { get; set;} = null!;
     public virtual HetalFlight Flight { get; set; } = null!;
     public virtual HetalCustomer Customer { get; set; } = null!;

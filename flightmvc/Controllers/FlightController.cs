@@ -23,8 +23,11 @@ namespace flightmvc.Controllers
             ctx=_ctx;
         }
         public static List<HetalFlight> flights = new List<HetalFlight>();
-        public async Task<ActionResult> ShowFlights()
+        public async Task<ActionResult> ShowFlights(String sortOrder, String sortOrder2, String searchString)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["RateSortParm"] = String.IsNullOrEmpty(sortOrder2) ? "rate_asc" : "";
+            ViewData["CurrentFilter"] = searchString;
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); 
@@ -33,6 +36,22 @@ namespace flightmvc.Controllers
             {
                 var response = Res.Content.ReadAsStringAsync().Result;
                 flights = JsonConvert.DeserializeObject<List<HetalFlight>>(response);
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    flights.Sort((x, y) => y.Airline.CompareTo(x.Airline));
+                    break;
+                case "rate_asc":
+                    flights.Sort((x, y) => x.Rate.CompareTo(y.Rate));
+                    break;
+                default:
+                    flights.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
+                    break;
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                flights = flights.Where(s => s.Airline.Contains(searchString)).ToList();
             }
             return View(flights);
         }
