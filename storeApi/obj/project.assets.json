@@ -2943,19 +2943,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\H.A.wa22\\.nuget\\packages\\": {}
+    "C:\\Users\\Hetal Atwal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\storeApi\\storeApi.csproj",
+      "projectUniqueName": "C:\\Users\\Hetal Atwal\\OneDrive\\Documents\\GitHub\\C-sharp-start\\storeApi\\storeApi.csproj",
       "projectName": "storeApi",
-      "projectPath": "E:\\storeApi\\storeApi.csproj",
-      "packagesPath": "C:\\Users\\H.A.wa22\\.nuget\\packages\\",
-      "outputPath": "E:\\storeApi\\obj\\",
+      "projectPath": "C:\\Users\\Hetal Atwal\\OneDrive\\Documents\\GitHub\\C-sharp-start\\storeApi\\storeApi.csproj",
+      "packagesPath": "C:\\Users\\Hetal Atwal\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Hetal Atwal\\OneDrive\\Documents\\GitHub\\C-sharp-start\\storeApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\H.A.wa22\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Hetal Atwal\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3013,7 +3013,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
